@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Rick and Morty</title>
 
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+      integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+      crossorigin="anonymous"
+    />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
@@ -17,6 +23,9 @@
           class="search-input"
           placeholder="Search by name..."
         />
+        <button class="clear-button">
+          <i class="fa fa-times-circle" aria-hidden="true"></i>
+        </button>
       </div>
 
       <div class="filter">
@@ -26,32 +35,7 @@
         <button class="filter-btn" data-filter="unknown">Unknown</button>
       </div>
 
-      <div class="card-wrapper">
-        <div class="card">
-          <img src="images/rick.jpeg" alt="" class="card-img" />
-          <div class="card-info">
-            <span class="badge">Alive</span>
-            <h3>Rick Sanchez</h3>
-            <p>Planet Earth</p>
-          </div>
-        </div>
-        <div class="card">
-          <img src="images/morty.jpeg" alt="" class="card-img" />
-          <div class="card-info">
-            <span class="badge">Dead</span>
-            <h3>Morty</h3>
-            <p>Planet Earth</p>
-          </div>
-        </div>
-        <div class="card">
-          <img src="images/cyborg.jpeg" alt="" class="card-img" />
-          <div class="card-info">
-            <span class="badge">Unknown</span>
-            <h3>Cyborg</h3>
-            <p>Planet Earth</p>
-          </div>
-        </div>
-      </div>
+      <div class="cards"></div>
     </div>
 
     <script src="script.js"></script>

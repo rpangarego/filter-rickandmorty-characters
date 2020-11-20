@@ -1,36 +1,107 @@
-//SELECTORS & VARIABLES
-const filterButtons = document.querySelectorAll(".filter-btn");
-const cards = document.querySelectorAll(".card");
+document.addEventListener("DOMContentLoaded", () => {
+  // SELECTORS & VARIABLES ====================
+  const searchInput = document.querySelector("input.search-input");
+  const filterButtons = document.querySelectorAll(".filter-btn");
+  const cardContainer = document.querySelector(".cards");
+  const clearButton = document.querySelector(".clear-button");
+  let cards = null;
 
-// ADD EVENT LISTENER
-filterButtons.forEach((button) => {
-  button.addEventListener("click", (e) => {
-    const status = e.target.textContent;
-
-    // hapus 'active' class di semua button
+  // FUNCTIONS ====================
+  function addActiveClass(filterStatus) {
     filterButtons.forEach((button) => {
       button.classList.remove("active");
 
-      // menambahkan 'active' class dibutton yg diklik
-      if (status === button.textContent) {
+      if (button.dataset.filter === filterStatus) {
         button.classList.add("active");
       }
     });
+  }
 
-    // manipulasi card (show/hide)
+  function filterCards(filterStatus) {
     cards.forEach((card) => {
-      const characterStatus = card.children[1].children[0].textContent;
-
-      if (status === "All") {
+      if (filterStatus === "all") {
         card.style.display = "block";
         return;
       }
 
-      if (status === characterStatus) {
+      if (card.dataset.status === filterStatus) {
         card.style.display = "block";
       } else {
         card.style.display = "none";
       }
     });
+  }
+
+  function searchByName(name) {
+    cards.forEach((card) => {
+      const characterName = card.children[1].children[1].textContent.toLowerCase();
+
+      if (characterName.includes(name.toLowerCase())) {
+        card.style.display = "block";
+      } else {
+        card.style.display = "none";
+      }
+    });
+  }
+
+  function renderCharacters(characters) {
+    let items = "";
+
+    characters.forEach((character) => {
+      items += `<div class="card" data-status="${character.status.toLowerCase()}">
+      <img src="${character.image}" alt="" class="card-image" />
+
+      <div class="card-info">
+        <p class="badge">${character.status}</p>
+        <h3>${character.name}</h3>
+        <p>${character.origin.name}</p>
+      </div>
+    </div>`;
+    });
+
+    cardContainer.innerHTML = items;
+  }
+
+  // EVENT LISTENERS ====================
+  searchInput.addEventListener("input", (e) => {
+    searchByName(searchInput.value);
+    if (searchInput.value) {
+      clearButton.style.display = "block";
+    } else {
+      clearButton.style.display = "none";
+    }
   });
+
+  filterButtons.forEach((button) => {
+    button.addEventListener("click", (e) => {
+      addActiveClass(button.dataset.filter);
+      filterCards(button.dataset.filter);
+      searchInput.value = "";
+    });
+  });
+
+  clearButton.addEventListener("click", () => {
+    searchInput.value = "";
+    filterCards("all");
+    clearButton.style.display = "none";
+  });
+
+  // FETCH DATA FROM API ====================
+  // mengambil data karakter dari API rickandmortyapi.com
+  fetch("https://rickandmortyapi.com/api/character")
+    // setelah mendapatkan data karakter dari rickandmortyapi.com
+    // ubah response (data yg didapat) kedalam bentuk JSON agar nantinya data tsb dapat kita olah/pake
+    .then((response) => response.json())
+    /*setelah data diubah dalam bentuk JSON. kita render karakter tersebut
+     kedalam tag html agar tampil dibrowser, dengan membuat function renderCharacters
+     dan argumen yg dikirim ke function adalah data yg kita dapat dari api. (function bisa dilihat diatas)
+
+     setelah dirender ke dlm HTML, kita perlu memilih/select element yg telah dirender lalu disimpan ke dalam variabel cards.
+     ini dilakukan agar nanti kita dapat melakukan filter berdasarkan status karakter. */
+    .then((data) => {
+      renderCharacters(data.results);
+      cards = document.querySelectorAll(".card");
+    })
+    // kalo ada error, tampilkan di console
+    .catch((error) => console.log(error));
 });
