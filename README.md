@@ -1,5 +1,7 @@
 # Mini Project: Filter Rick and Morty Characters
 
+<img src="images/project-rickandmorty.png" alt="Screenshot Project RickAndMorty" width="400px"/>
+
 Di project ini user dapat melakukan filter karakter Rick and Morty berdasarkan status karakternya: Alive/Hidup, Dead/Mati atau Unknown/Tidak diketahui statusnya. Filter karakter dilakukan dengan memanipulasi element HTML menggunakan Javascript DOM. 
 
 Konsepnya:
