@@ -6,8 +6,9 @@
 
 .container {
   width: 80%;
+  max-width: 800px;
   min-height: 100vh;
-  border: 2px solid red;
+  /* border: 2px solid red; */
   margin: 0 auto;
 }
 
@@ -27,6 +28,8 @@ h1 {
 }
 
 .search-input {
+  width: 50%;
+  max-width: 400px;
   font-size: 16px;
   background: #fff;
   padding: 6px 10px;
@@ -44,6 +47,7 @@ h1 {
 .filter-btn {
   margin: 0 6px;
   padding: 3px 6px;
+  font-size: 15px;
   background-color: #fff;
   border: 1px solid #a6a6a6;
   border-radius: 4px;
@@ -63,7 +67,7 @@ h1 {
 
 .card {
   width: 100%;
-  border: 1px solid black;
+  border: 1px solid #a6a6a6;
   border-radius: 10px;
   overflow: hidden;
 }
