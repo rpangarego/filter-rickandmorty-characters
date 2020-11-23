@@ -18,12 +18,13 @@ body {
 
 h1 {
   text-align: center;
-  margin: 30px;
+  margin: 30px 0;
 }
 
 .search-box {
   display: flex;
   justify-content: center;
+
   margin-bottom: 20px;
 }
 
